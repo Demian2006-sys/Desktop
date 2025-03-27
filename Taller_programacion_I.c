@@ -1,13 +1,13 @@
 #include <stdio.h>
 
 int main() {
-    int stock, cantidad, opcion, valid = 0;
+    int stock, cantidad, opcion, valid = 0, result;
     float precio, descuento, total_ganancias = 0, venta = 0;
     char nombre[30], id[30], opc;
 
     do {
         printf("==========================================\n");
-        printf("_Menu de opciones_\n");
+        printf("Menu de opciones\n");
         printf("1. Registrar producto\n");
         printf("2. Vender producto\n");
         printf("3. Reabastecer producto\n");
@@ -17,7 +17,6 @@ int main() {
         printf("==========================================\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
-        getchar(); 
         
         if (opcion >= 2 && opcion <= 5 && valid == 0) {
             printf("No se ha registrado ningún producto. Ingrese primero en la opcion 1.\n");
@@ -37,19 +36,26 @@ int main() {
 
             do {
                 printf("Ingrese la cantidad inicial en stock: ");
-                if (scanf("%d", &stock) != EOF)
-                {
-                if (stock <= 0) {
+                result = scanf("%d", &stock);
+                if (result != 1) { // Si scanf no puede leer un número
+                    printf("Entrada inválida. Por favor, ingrese un número entero.\n");
+                    while (getchar() != '\n'); // Limpia el buffer de entrada
+                    stock = -1; // Fuerza la repetición del bucle
+                } else if (stock <= 0) {
                     printf("Cantidad no válida, no se acepta el 0 o un número menor\n");
                 }
-            }
+            
             } while (stock <= 0);
 
             do {
                 printf("Ingrese el precio unitario del producto: ");
-                scanf("%f", &precio);
-                if (precio <= 0) {
-                    printf("Precio no válido, no se acepta el 0 o un número menor\n");
+                result= scanf("%f", &precio);
+                if (result != 1) { 
+                    printf("Entrada inválida. Por favor, ingrese un número entero.\n");
+                    while (getchar() != '\n'); 
+                    precio = -1; 
+                } else if (precio <= 0) {
+                    printf("Precio no valido, no se acepta el 0 o un número menor\n");
                 }
             } while (precio <= 0);
 
@@ -63,11 +69,16 @@ int main() {
             
             do {
                 printf("Ingrese la cantidad a vender: ");
-                scanf("%d", &cantidad);
-                if (cantidad < 1) {
+                result = scanf("%d", &cantidad);
+                if (result != 1) { 
+                    printf("Entrada inválida. Por favor, ingrese un número entero.\n");
+                    while (getchar() != '\n'); 
+                    cantidad = -1; 
+                }
+                else if (cantidad < 1) {
                     printf("La cantidad debe ser mayor a 0, vuelva a ingresar\n");
                 }
-                if (cantidad > stock) {
+                else if (cantidad > stock) {
                     printf("No existe la cantidad necesaria para esta venta\n");
                 }
             } while (cantidad < 1 || cantidad > stock);
@@ -80,8 +91,13 @@ int main() {
             if (opc == 'S' || opc == 's') {
                 do {
                     printf("Ingrese el porcentaje de descuento: ");
-                    scanf("%f", &descuento);
-                    if (descuento < 0 || descuento > 100) {
+                    result = scanf("%f", &descuento);
+                    if (result != 1) {
+                        printf("Entrada inválida. Por favor, ingrese un número entero.\n");
+                        while (getchar() != '\n'); 
+                        descuento = -1; 
+                    }
+                    else if (descuento < 0 || descuento > 100) {
                         printf("Descuento no válido, debe ser un valor entre 0 y 100.\n");
                     }
                 } while (descuento < 0 || descuento > 100);
@@ -98,8 +114,13 @@ int main() {
             
             do {
                 printf("Ingrese la cantidad a agregar al stock: ");
-                scanf("%d", &cantidad);
-                if (cantidad <= 0) {
+                result = scanf("%d", &cantidad);
+                if (result != 1) { 
+                    printf("Entrada inválida. Por favor, ingrese un número entero.\n");
+                    while (getchar() != '\n'); 
+                    cantidad = -1;
+                }
+                else if (cantidad <= 0) {
                     printf("Cantidad no válida\n");
                 }
             } while (cantidad <= 0);
