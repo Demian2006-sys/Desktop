@@ -17,6 +17,7 @@ int main() {
         printf("==========================================\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
+        getchar(); 
         
         if (opcion >= 2 && opcion <= 5 && valid == 0) {
             printf("No se ha registrado ningún producto. Ingrese primero en la opcion 1.\n");
