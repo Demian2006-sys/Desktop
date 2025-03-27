@@ -37,10 +37,12 @@ int main() {
 
             do {
                 printf("Ingrese la cantidad inicial en stock: ");
-                scanf("%d", &stock);
+                if (scanf("%d", &stock) != EOF)
+                {
                 if (stock <= 0) {
                     printf("Cantidad no válida, no se acepta el 0 o un número menor\n");
                 }
+            }
             } while (stock <= 0);
 
             do {
